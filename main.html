@@ -60,7 +60,7 @@
         </div>
         <div style="display: flex;">
             <h3 style="width: fit-content; margin-left: 3%; color: white;">Filter by Genre:</h3>
-            <select id="filterSelect" style="background-color: gray; margin-right: 8%; border: 0px;">
+            <select id="filterSelect" style="background-color: gray; margin-right: 8%; border: 0px;" onchange="genreSelect(this)">
                 <option value="General" selected>All Generes</option>
                 <option value="Action">Action</option>
                 <option value="Comedy">Comedy</option>
@@ -71,12 +71,11 @@
             </select>
         </div>
     </section>
-    <button onclick="testModal()">test</button>
+
     <div id="modal">
         <div id="modalContent">
-            <span id="exitEdit" onclick="closeEdit()">&times;</span>
             <h1>Edit Movie</h1>
-            <form action="">
+            <form id="editForm">
                 <label for="title">Title</label><br>
                 <input type="text" id="titleEdit"><br>
                 <label for="Genre">Genre</label>
@@ -104,7 +103,7 @@
                 </div>
             </form>
             <div style="float: right;">
-                <button>Submit</button>
+                <button onclick="submitEdit()">Submit</button>
                 <button onclick="closeEdit()">Cancel</button>
             </div>
         </div>

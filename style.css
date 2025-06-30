@@ -90,8 +90,3 @@ input[type="radio"]{
     background-color: darkgrey;
     width: 100%;
 }
-
-#exitEdit {
-    float: right;
-    font-size: 36px;
-}
