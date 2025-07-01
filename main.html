@@ -5,7 +5,7 @@
     <title>main</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="container">
     <header>
         <h1>My Movie Wishlist</h1>
         <h3>add, sort, and manage movies you want to watch</h3>
@@ -48,15 +48,15 @@
             
             
             <br>
-            <button type="reset" onclick="newMovie()" style="font-size: 1.5em; width: 80%; margin-left: 10%; background-color: red; color: white; border: 0px; padding-top: 10px; padding-bottom: 10px;">Add Movie</button>
+            <button type="reset" name="testadd" id="addButton" style="font-size: 1.5em; width: 80%; margin-left: 10%; background-color: red; color: white; border: 0px; padding-top: 10px; padding-bottom: 10px;">Add Movie</button>
         </form>
     </section>
 
     <section style="background-color: gray; display: flex; justify-content: space-between; width: 80%; margin-left: 10%; margin-top: 2em;">
         <div style="width: 48%; display: flex;">
             <h3 style="width: fit-content; margin-left: 3%; color: white;">Sort by:</h3>
-            <button style="margin-left: 2%; height: fit-content; margin-top: 3%; background-color: gray; color: white;">Title</button>
-            <button style="margin-left: 2%; height: fit-content; margin-top: 3%; background-color: gray; color: white;">Rating</button>
+            <button id="titleButton" style="margin-left: 2%; height: fit-content; margin-top: 3%; background-color: gray; color: white;">Title</button>
+            <button id="ratingButton" style="margin-left: 2%; height: fit-content; margin-top: 3%; background-color: gray; color: white;">Rating</button>
         </div>
         <div style="display: flex;">
             <h3 style="width: fit-content; margin-left: 3%; color: white;">Filter by Genre:</h3>
@@ -103,8 +103,8 @@
                 </div>
             </form>
             <div style="float: right;">
-                <button onclick="submitEdit()">Submit</button>
-                <button onclick="closeEdit()">Cancel</button>
+                <button id="submitButton">Submit</button>
+                <button id="cancelButton">Cancel</button>
             </div>
         </div>
     </div>

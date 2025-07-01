@@ -6,6 +6,41 @@ var movieList = [];
 var listJSON = JSON.stringify(movieList);
 localStorage.setItem("fullList",listJSON);
 var printer = document.getElementById("movieContainer");
+var byRating = false;
+var byTitle = false;
+
+const container = document.querySelector("#container");
+container.addEventListener("click",testevent);
+
+function testevent(event){
+    if(event.target.tagName === 'BUTTON'){
+        if(event.target.id == "addButton"){
+            
+            newMovie();
+        } 
+        else if(event.target.id == "titleButton"){
+            sortTitle();
+        }
+        else if(event.target.id == "ratingButton"){
+            sortRating();
+        }
+        else if(event.target.id == "submitButton"){
+            submitEdit();
+        }
+        else if(event.target.id == "cancelButton"){
+            closeEdit();
+        }
+        else if(event.target.name == "ediButton"){
+            openEdit(event.target.id.replace("edi",""));
+        }
+        else if(event.target.name == "watButton"){
+            watched(event.target.id.replace("wat",""));
+        }
+        else if(event.target.name == "remButton"){
+            remove(event.target.id.replace("rem",""));
+        }
+    }
+}
 
 function clearStars(){
     var star5 = document.getElementById('s5');
@@ -161,7 +196,7 @@ function renderMovies(Movie) {
             post += "style='color:white; margin:0; padding-right:20px;'>" + Movie[x].title + "</h1> ";
         }
 
-        post += "<button onclick='openEdit(\"" + Movie[x].title + Movie[x].genre + Movie[x].rating + "\")' style='float:right;'>edit</button> <button onclick='watched(\"" + Movie[x].title + Movie[x].genre + Movie[x].rating + "\")' style='float:right;'>watched</button> <button onclick='remove(\"" + Movie[x].title + Movie[x].genre + Movie[x].rating + "\")' style='float:right;'>remove</button> </div>";
+        post += "<button name='ediButton' id='edi" + Movie[x].title + Movie[x].genre + Movie[x].rating + "' style='float:right;'>edit</button> <button name='watButton' id='wat" + Movie[x].title + Movie[x].genre + Movie[x].rating + "' style='float:right;'>watched</button> <button name='remButton' id='rem" + Movie[x].title + Movie[x].genre + Movie[x].rating + "' style='float:right;'>remove</button> </div>";
         post += "<h2 style='color: yellow; margin:0;'>";
         for(let y = 1; y<= Movie[x].rating; y++){
             post += "★";
@@ -272,7 +307,15 @@ function genreSelect(selectedFilter){
     var tempArray = [];
 
     if(filter == "General"){
-        renderMovies(originalList);
+        if(byTitle){
+            renderMovies(sortMovies(1,originalList));
+        }
+        else if(byRating){
+            renderMovies(sortMovies(2,originalList));
+        }
+        else{
+            renderMovies(originalList);
+        }
     }
     else{
         for(var x = 0; x < originalList.length; x++){
@@ -280,7 +323,51 @@ function genreSelect(selectedFilter){
                 tempArray.push(originalList[x]);
             }
         }
-        renderMovies(tempArray);
+        if(byTitle){
+            renderMovies(sortMovies(1,tempArray));
+        }
+        else if(byRating){
+            renderMovies(sortMovies(2,tempArray));
+        }
+        else{
+            renderMovies(tempArray);
+        }
+        //renderMovies(tempArray);
     }
-    
+    //if(byTitle){
+    //    sortMovies();
+    //}
+    //else if(byRating){
+    //    sortMovies();
+    //}
+}
+
+function sortTitle() {
+    byRating = false;
+    byTitle = true;
+    genreSelect(document.getElementById("filterSelect"));
+}
+
+function sortRating() {
+    byRating = true;
+    byTitle = false;
+    genreSelect(document.getElementById("filterSelect"));
+}
+
+function sortMovies(x,tempArray){
+    if(x == 1){
+        tempArray.sort(function(a,b){
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
+        });
+        return tempArray;
+    }
+    else if(x ==2){
+        tempArray.sort(function(a,b){return b.rating - a.rating});
+        return tempArray;
+    }
+    else{
+        return tempArray;
+    }
 }
